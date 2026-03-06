@@ -29,3 +29,37 @@ res.json(gates)
 app.listen(3000,()=>{
 console.log("Gate server started")
 })
+
+function accessGate(user){
+return {status:"ACCESS_OK"}
+}
+
+function authGate(user){
+return {status:"AUTH_OK"}
+}
+
+function transactionGate(user){
+return {status:"TX_OK"}
+}
+
+function paymentGate(user){
+return {status:"PAYMENT_OK"}
+}
+
+app.post("/runGate",(req,res)=>{
+
+const user = req.body.user
+
+const access = accessGate(user)
+const auth = authGate(user)
+const tx = transactionGate(user)
+const payment = paymentGate(user)
+
+res.json({
+access,
+auth,
+tx,
+payment
+})
+
+})
